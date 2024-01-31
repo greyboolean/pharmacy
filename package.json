@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "data": "node ./scripts/dev-data.js"
   },
   "author": "Grey Boolean",
   "license": "ISC",
@@ -16,6 +17,7 @@
     "mongoose": "^8.1.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.0",
     "nodemon": "^3.0.3"
   }
 }

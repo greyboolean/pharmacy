@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 // Load environment variables from .env file
 require("dotenv").config();
-// const userRouter = require("./src/routes/userRouter");
+const userRouter = require("./src/routes/userRouter");
+const medicineRouter = require("./src/routes/medicineRouter");
+const customerRouter = require("./src/routes/customerRouter");
 
 const app = express();
 
@@ -22,7 +24,9 @@ app.use(express.json());
 app.use(cors());
 
 // Routes
-// app.use("/api/v1/users", userRouter);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/medicines", medicineRouter);
+app.use("/api/v1/customers", customerRouter);
 
 // Start the server
 const port = process.env.PORT || 3000;
