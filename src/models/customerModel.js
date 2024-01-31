@@ -18,6 +18,10 @@ const customerSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	deletedAt: {
+		type: Date,
+		default: null,
+	},
 });
 
 const Customer = mongoose.model("Customer", customerSchema);
