@@ -20,7 +20,8 @@ const generateUsers = async (num) => {
 		const user = new User({
 			name: faker.person.fullName(),
 			username: faker.internet.userName(),
-			password: faker.internet.password(),
+			// password: faker.internet.password(),
+			password: "pass1234",
 			role: faker.helpers.arrayElement(["owner", "manager", "cashier"]),
 		});
 		await user.save();
