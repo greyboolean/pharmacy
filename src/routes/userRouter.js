@@ -1,7 +1,13 @@
 const express = require("express");
 const userController = require("../controllers/userController");
+const authController = require("../controllers/authController");
 
 const router = express.Router();
+
+// Protect all routes after this middleware
+router.use(authController.protect);
+// Restrict all routes after this middleware to admin only
+router.use(authController.restrictTo("admin"));
 
 // Define routes for the root path '/'
 router
