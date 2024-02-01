@@ -22,7 +22,27 @@ const userController = {
 	// CREATE a new user
 	createUser: async (req, res) => {
 		try {
+			const { name, username, password, role } = req.body;
+
+			// Validate request body
+			if (!name || !username || !password || !role) {
+				return res.status(400).json({
+					success: false,
+					message: "Name, username, password, and role are required",
+				});
+			}
+
+			// Check if user already exists
+			const existingUser = await User.findOne({ username });
+			if (existingUser) {
+				return res.status(409).json({
+					success: false,
+					message: "Username already exists",
+				});
+			}
+
 			const newUser = await User.create(req.body);
+			newUser.password = undefined;
 			res.status(201).json({
 				success: true,
 				data: newUser,
@@ -47,10 +67,10 @@ const userController = {
 				});
 			}
 			res.status(200).json({
-        success: true,
-        data: user,
-        message: "User fetched successfully"
-      });
+				success: true,
+				data: user,
+				message: "User fetched successfully",
+			});
 		} catch (error) {
 			res.status(500).json({
 				success: false,
@@ -59,20 +79,50 @@ const userController = {
 		}
 	},
 
+	// // UPDATE an existing user
+	// updateUser: async (req, res) => {
+	// 	try {
+	// 		const updatedUser = await User.findByIdAndUpdate(
+	// 			req.params.id,
+	// 			req.body,
+	// 			{ new: true }
+	// 		);
+	// 		if (!updatedUser) {
+	// 			return res.status(404).json({
+	// 				success: false,
+	// 				message: "User not found",
+	// 			});
+	// 		}
+	// 		res.status(200).json({
+	// 			success: true,
+	// 			data: updatedUser,
+	// 			message: "User updated successfully",
+	// 		});
+	// 	} catch (error) {
+	// 		res.status(500).json({
+	// 			success: false,
+	// 			message: error.message,
+	// 		});
+	// 	}
+	// },
+
+	// With password modification
 	// UPDATE an existing user
 	updateUser: async (req, res) => {
 		try {
-			const updatedUser = await User.findByIdAndUpdate(
-				req.params.id,
-				req.body,
-				{ new: true }
-			);
-			if (!updatedUser) {
+			const user = await User.findById(req.params.id).select("+password");
+			if (!user) {
 				return res.status(404).json({
 					success: false,
 					message: "User not found",
 				});
 			}
+			
+			// Update the fields
+			Object.assign(user, req.body);
+
+			const updatedUser = await user.save();
+			updatedUser.password = undefined;
 			res.status(200).json({
 				success: true,
 				data: updatedUser,
