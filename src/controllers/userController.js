@@ -22,11 +22,10 @@ const userController = {
 	// CREATE a new user
 	createUser: async (req, res) => {
 		try {
-			const newUser = new User(req.body);
-			const savedUser = await newUser.save();
+			const newUser = await User.create(req.body);
 			res.status(201).json({
 				success: true,
-				data: savedUser,
+				data: newUser,
 				message: "User created successfully",
 			});
 		} catch (error) {

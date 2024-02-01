@@ -22,11 +22,10 @@ const customerController = {
 	// CREATE a new customer
 	createCustomer: async (req, res) => {
 		try {
-			const newCustomer = new Customer(req.body);
-			const savedCustomer = await newCustomer.save();
+			const newCustomer = await Customer.create(req.body);
 			res.status(201).json({
 				success: true,
-				data: savedCustomer,
+				data: newCustomer,
 				message: "Customer created successfully",
 			});
 		} catch (error) {

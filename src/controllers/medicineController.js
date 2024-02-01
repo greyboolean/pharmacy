@@ -22,11 +22,10 @@ const medicineController = {
 	// CREATE a new medicine
 	createMedicine: async (req, res) => {
 		try {
-			const newMedicine = new Medicine(req.body);
-			const savedMedicine = await newMedicine.save();
+			const newMedicine = await Medicine.create(req.body);
 			res.status(201).json({
 				success: true,
-				data: savedMedicine,
+				data: newMedicine,
 				message: "Medicine created successfully",
 			});
 		} catch (error) {
