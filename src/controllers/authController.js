@@ -129,6 +129,67 @@ const authController = {
 			message: "User logged out successfully",
 		});
 	},
+
+	// Protect route
+	protect: async (req, res, next) => {
+		try {
+			let token;
+			// Get token from request header
+			if (
+				req.headers.authorization &&
+				req.headers.authorization.startsWith("Bearer")
+			) {
+				token = req.headers.authorization.split(" ")[1];
+			}
+
+			// Check if token exists
+			if (!token) {
+				return res.status(401).json({
+					success: false,
+					message: "You are not authorized to access this route",
+				});
+			}
+
+			// Verify token
+			const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+			// Find user by id
+			const user = await User.findById(decoded.id);
+
+			// Check if user exists
+			if (!user) {
+				return res.status(404).json({
+					success: false,
+					message: "No user found with this id",
+				});
+			}
+
+			// Set user to request object
+			req.user = user;
+
+			next();
+		} catch (error) {
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		}
+	},
+
+	// Restrict route to certain roles
+	restrictTo: (...roles) => {
+		return (req, res, next) => {
+			// Check if user role is included in roles
+			if (!roles.includes(req.user.role)) {
+				return res.status(403).json({
+					success: false,
+					message: "You are not authorized to access this route",
+				});
+			}
+
+			next();
+		};
+	},
 };
 
 module.exports = authController;
