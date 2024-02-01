@@ -7,7 +7,7 @@ const router = express.Router();
 // Protect all routes after this middleware
 router.use(authController.protect);
 // Restrict all routes after this middleware to admin only
-router.use(authController.restrictTo("admin"));
+router.use(authController.restrictTo("owner"));
 
 // Define routes for the root path '/'
 router

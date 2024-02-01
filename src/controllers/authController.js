@@ -142,11 +142,11 @@ const authController = {
 				token = req.headers.authorization.split(" ")[1];
 			}
 
-			// Check if token exists
+			// Check if token does not exist
 			if (!token) {
 				return res.status(401).json({
 					success: false,
-					message: "You are not authorized to access this route",
+					message: "You are not logged in",
 				});
 			}
 
