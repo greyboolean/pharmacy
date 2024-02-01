@@ -24,6 +24,20 @@ const customerSchema = new mongoose.Schema({
 	},
 });
 
+// // Get customers that are not soft deleted
+// customerSchema.pre(/^find/, function (next) {
+// 	this.find({ deletedAt: null });
+// 	next();
+// });
+
+// Get customers that are not soft deleted
+customerSchema.pre(/^find/, function (next) {
+	if (!this.getOptions().includeSoftDeleted) {
+		this.find({ deletedAt: null });
+	}
+	next();
+});
+
 const Customer = mongoose.model("Customer", customerSchema);
 
 module.exports = Customer;

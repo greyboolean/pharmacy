@@ -117,7 +117,7 @@ const userController = {
 					message: "User not found",
 				});
 			}
-			
+
 			// Update the fields
 			Object.assign(user, req.body);
 
@@ -136,10 +136,62 @@ const userController = {
 		}
 	},
 
-	// DELETE an user
-	deleteUser: async (req, res) => {
+	// // DELETE a user
+	// deleteUser: async (req, res) => {
+	// 	try {
+	// 		const deletedUser = await User.findByIdAndDelete(req.params.id);
+	// 		if (!deletedUser) {
+	// 			return res.status(404).json({
+	// 				success: false,
+	// 				message: "User not found",
+	// 			});
+	// 		}
+	// 		res.status(200).json({
+	// 			success: true,
+	// 			message: "User deleted successfully",
+	// 		});
+	// 	} catch (error) {
+	// 		res.status(500).json({
+	// 			success: false,
+	// 			message: error.message,
+	// 		});
+	// 	}
+	// },
+
+	// Soft DELETE a user
+	deleteUserSoft: async (req, res) => {
 		try {
-			const deletedUser = await User.findByIdAndDelete(req.params.id);
+			const deletedUser = await User.findOne({
+				_id: req.params.id,
+				deletedAt: null,
+			});
+			if (!deletedUser) {
+				return res.status(404).json({
+					success: false,
+					message: "User not found",
+				});
+			}
+			deletedUser.deletedAt = new Date();
+			await deletedUser.save();
+			res.status(200).json({
+				success: true,
+				message: "User soft deleted successfully",
+			});
+		} catch (error) {
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		}
+	},
+
+	// Hard DELETE a user
+	deleteUserHard: async (req, res) => {
+		try {
+			const deletedUser = await User.findByIdAndDelete(
+				{ _id: req.params.id },
+				{ includeSoftDeleted: true }
+			);
 			if (!deletedUser) {
 				return res.status(404).json({
 					success: false,
@@ -148,7 +200,7 @@ const userController = {
 			}
 			res.status(200).json({
 				success: true,
-				message: "User deleted successfully",
+				message: "User hard deleted successfully",
 			});
 		} catch (error) {
 			res.status(500).json({

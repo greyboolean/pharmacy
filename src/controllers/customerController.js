@@ -47,10 +47,10 @@ const customerController = {
 				});
 			}
 			res.status(200).json({
-        success: true,
-        data: customer,
-        message: "Customer fetched successfully"
-      });
+				success: true,
+				data: customer,
+				message: "Customer fetched successfully",
+			});
 		} catch (error) {
 			res.status(500).json({
 				success: false,
@@ -86,10 +86,64 @@ const customerController = {
 		}
 	},
 
-	// DELETE an customer
-	deleteCustomer: async (req, res) => {
+	// // DELETE a customer
+	// deleteCustomer: async (req, res) => {
+	// 	try {
+	// 		const deletedCustomer = await Customer.findByIdAndDelete(
+	// 			req.params.id
+	// 		);
+	// 		if (!deletedCustomer) {
+	// 			return res.status(404).json({
+	// 				success: false,
+	// 				message: "Customer not found",
+	// 			});
+	// 		}
+	// 		res.status(200).json({
+	// 			success: true,
+	// 			message: "Customer deleted successfully",
+	// 		});
+	// 	} catch (error) {
+	// 		res.status(500).json({
+	// 			success: false,
+	// 			message: error.message,
+	// 		});
+	// 	}
+	// },
+
+	// Soft DELETE a customer
+	deleteCustomerSoft: async (req, res) => {
 		try {
-			const deletedCustomer = await Customer.findByIdAndDelete(req.params.id);
+			const deletedCustomer = await Customer.findOne({
+				_id: req.params.id,
+				deletedAt: null,
+			});
+			if (!deletedCustomer) {
+				return res.status(404).json({
+					success: false,
+					message: "Customer not found",
+				});
+			}
+			deletedCustomer.deletedAt = new Date();
+			await deletedCustomer.save();
+			res.status(200).json({
+				success: true,
+				message: "Customer soft deleted successfully",
+			});
+		} catch (error) {
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		}
+	},
+
+	// Hard DELETE a customer
+	deleteCustomerHard: async (req, res) => {
+		try {
+			const deletedCustomer = await Customer.findByIdAndDelete(
+				{ _id: req.params.id },
+				{ includeSoftDeleted: true }
+			);
 			if (!deletedCustomer) {
 				return res.status(404).json({
 					success: false,
@@ -98,7 +152,7 @@ const customerController = {
 			}
 			res.status(200).json({
 				success: true,
-				message: "Customer deleted successfully",
+				message: "Customer hard deleted successfully",
 			});
 		} catch (error) {
 			res.status(500).json({

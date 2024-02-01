@@ -13,7 +13,11 @@ router
 router
 	.route("/:id")
 	.get(medicineController.getMedicineById)
-	.patch(medicineController.updateMedicine)
-	.delete(medicineController.deleteMedicine);
+	.patch(medicineController.updateMedicine);
+// .delete(medicineController.deleteMedicine);
+
+// Defie routes for soft and hard medicine delete
+router.route("/:id/soft").delete(medicineController.deleteMedicineSoft);
+router.route("/:id/hard").delete(medicineController.deleteMedicineHard);
 
 module.exports = router;

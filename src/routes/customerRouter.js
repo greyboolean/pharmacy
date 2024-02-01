@@ -13,7 +13,11 @@ router
 router
 	.route("/:id")
 	.get(customerController.getCustomerById)
-	.patch(customerController.updateCustomer)
-	.delete(customerController.deleteCustomer);
+	.patch(customerController.updateCustomer);
+// .delete(customerController.deleteCustomer);
+
+// Defie routes for soft and hard customer delete
+router.route("/:id/soft").delete(customerController.deleteCustomerSoft);
+router.route("/:id/hard").delete(customerController.deleteCustomerHard);
 
 module.exports = router;

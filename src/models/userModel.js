@@ -27,6 +27,20 @@ const userSchema = new mongoose.Schema({
 	},
 });
 
+// // Get users that are not soft deleted
+// userSchema.pre(/^find/, function (next) {
+// 	this.find({ deletedAt: null });
+// 	next();
+// });
+
+// Get users that are not soft deleted
+userSchema.pre(/^find/, function (next) {
+	if (!this.getOptions().includeSoftDeleted) {
+		this.find({ deletedAt: null });
+	}
+	next();
+});
+
 // Hash the password before saving the user to the database
 userSchema.pre("save", async function (next) {
 	if (!this.isModified("password")) return next();

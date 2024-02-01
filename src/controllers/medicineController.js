@@ -47,10 +47,10 @@ const medicineController = {
 				});
 			}
 			res.status(200).json({
-        success: true,
-        data: medicine,
-        message: "Medicine fetched successfully"
-      });
+				success: true,
+				data: medicine,
+				message: "Medicine fetched successfully",
+			});
 		} catch (error) {
 			res.status(500).json({
 				success: false,
@@ -86,10 +86,62 @@ const medicineController = {
 		}
 	},
 
-	// DELETE an medicine
-	deleteMedicine: async (req, res) => {
+	// // DELETE a medicine
+	// deleteMedicine: async (req, res) => {
+	// 	try {
+	// 		const deletedMedicine = await Medicine.findByIdAndDelete(req.params.id);
+	// 		if (!deletedMedicine) {
+	// 			return res.status(404).json({
+	// 				success: false,
+	// 				message: "Medicine not found",
+	// 			});
+	// 		}
+	// 		res.status(200).json({
+	// 			success: true,
+	// 			message: "Medicine deleted successfully",
+	// 		});
+	// 	} catch (error) {
+	// 		res.status(500).json({
+	// 			success: false,
+	// 			message: error.message,
+	// 		});
+	// 	}
+	// },
+
+	// Soft DELETE a medicine
+	deleteMedicineSoft: async (req, res) => {
 		try {
-			const deletedMedicine = await Medicine.findByIdAndDelete(req.params.id);
+			const deletedMedicine = await Medicine.findOne({
+				_id: req.params.id,
+				deletedAt: null,
+			});
+			if (!deletedMedicine) {
+				return res.status(404).json({
+					success: false,
+					message: "Medicine not found",
+				});
+			}
+			deletedMedicine.deletedAt = new Date();
+			await deletedMedicine.save();
+			res.status(200).json({
+				success: true,
+				message: "Medicine soft deleted successfully",
+			});
+		} catch (error) {
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		}
+	},
+
+	// Hard DELETE a medicine
+	deleteMedicineHard: async (req, res) => {
+		try {
+			const deletedMedicine = await Medicine.findByIdAndDelete(
+				{ _id: req.params.id },
+				{ includeSoftDeleted: true }
+			);
 			if (!deletedMedicine) {
 				return res.status(404).json({
 					success: false,
@@ -98,7 +150,7 @@ const medicineController = {
 			}
 			res.status(200).json({
 				success: true,
-				message: "Medicine deleted successfully",
+				message: "Medicine hard deleted successfully",
 			});
 		} catch (error) {
 			res.status(500).json({

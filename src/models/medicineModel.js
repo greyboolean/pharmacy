@@ -19,6 +19,20 @@ const medicineSchema = new mongoose.Schema({
 	},
 });
 
+// // Get medicines that are not soft deleted
+// medicineSchema.pre(/^find/, function (next) {
+// 	this.find({ deletedAt: null });
+// 	next();
+// });
+
+// Get medicines that are not soft deleted
+medicineSchema.pre(/^find/, function (next) {
+	if (!this.getOptions().includeSoftDeleted) {
+		this.find({ deletedAt: null });
+	}
+	next();
+});
+
 const Medicine = mongoose.model("Medicine", medicineSchema);
 
 module.exports = Medicine;

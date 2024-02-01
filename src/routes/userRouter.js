@@ -13,7 +13,11 @@ router
 router
 	.route("/:id")
 	.get(userController.getUserById)
-	.patch(userController.updateUser)
-	.delete(userController.deleteUser);
+	.patch(userController.updateUser);
+// .delete(userController.deleteUser);
+
+// Defie routes for soft and hard user delete
+router.route("/:id/soft").delete(userController.deleteUserSoft);
+router.route("/:id/hard").delete(userController.deleteUserHard);
 
 module.exports = router;
