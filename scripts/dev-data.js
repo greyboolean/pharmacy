@@ -59,9 +59,12 @@ const generateData = async (num) => {
 		generateCustomers(num),
 	]);
 	console.log("Data generation completed.");
-	mongoose.connection.close(() => {
-		"Disconnected from MongoDB";
-	});
+	try {
+		await mongoose.connection.close();
+		console.log("Disconnected from MongoDB");
+	} catch (error) {
+		console.error("Error disconnecting from MongoDB:", error);
+	}
 };
 
 // Delete data
@@ -73,9 +76,12 @@ const deleteData = async () => {
 		Customer.deleteMany({}),
 	]);
 	console.log("Data deleted.");
-	mongoose.connection.close(() => {
-		"Disconnected from MongoDB";
-	});
+	try {
+		await mongoose.connection.close();
+		console.log("Disconnected from MongoDB");
+	} catch (error) {
+		console.error("Error disconnecting from MongoDB:", error);
+	}
 };
 
 // Check command line arguments
