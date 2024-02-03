@@ -141,7 +141,7 @@ const authController = {
 			) {
 				token = req.headers.authorization.split(" ")[1];
 				// Get token from cookie if not in header
-			} else if (req.cookies.jwt) {
+			} else if (req.cookies && req.cookies.jwt) {
 				token = req.cookies.jwt;
 			}
 
