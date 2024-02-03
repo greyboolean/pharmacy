@@ -140,6 +140,9 @@ const authController = {
 				req.headers.authorization.startsWith("Bearer")
 			) {
 				token = req.headers.authorization.split(" ")[1];
+				// Get token from cookie if not in header
+			} else if (req.cookies.jwt) {
+				token = req.cookies.jwt;
 			}
 
 			// Check if token does not exist
