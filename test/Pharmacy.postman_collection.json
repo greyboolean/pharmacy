@@ -1,0 +1,763 @@
+{
+	"info": {
+		"_postman_id": "630edcd2-1e48-4364-a850-1d5321635f31",
+		"name": "Pharmacy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28511550",
+		"_collection_link": "https://www.postman.com/greyboolean-team/workspace/wireapps/collection/28511550-630edcd2-1e48-4364-a850-1d5321635f31?action=share&source=collection_link&creator=28511550"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/users",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/users/65ba556bf6b2f22dbbee7074",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"users",
+								"65ba556bf6b2f22dbbee7074"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Grey Boolean\",\r\n    \"username\": \"greyboolean\",\r\n    \"password\": \"{{password}}\",\r\n    \"role\": \"owner\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/users",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Grey Boolean 1\",\r\n    \"username\": \"greyboolean1\",\r\n    \"password\": \"test12341\",\r\n    \"role\": \"manager\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/users/65ba556bf6b2f22dbbee7074",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"users",
+								"65ba556bf6b2f22dbbee7074"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/users/65ba556bf6b2f22dbbee7074",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"users",
+								"65ba556bf6b2f22dbbee7074"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Soft",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/users/65bb9881bb400cc7187710d4/soft",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"users",
+								"65bb9881bb400cc7187710d4",
+								"soft"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Hard",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/users/65bb9881bb400cc7187710d4/hard",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"users",
+								"65bb9881bb400cc7187710d4",
+								"hard"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Medicines",
+			"item": [
+				{
+					"name": "Get All Medicines",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/medicines",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"medicines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Medicine",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/medicines/65ba5671f6b2f22dbbee707d",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"medicines",
+								"65ba5671f6b2f22dbbee707d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Medicine",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test Drug\",\r\n    \"description\": \"Lorem Ipusm\",\r\n    \"quantity\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/medicines",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"medicines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Medicine",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test Drug 1\",\r\n    \"description\": \"Lorem Ipusm 1\",\r\n    \"quantity\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/medicines/65ba5671f6b2f22dbbee707d",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"medicines",
+								"65ba5671f6b2f22dbbee707d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Medicine",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/medicines/65ba5671f6b2f22dbbee707d",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"medicines",
+								"65ba5671f6b2f22dbbee707d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Medicine Soft",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/medicines/65bb9881bb400cc7187710d5/soft",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"medicines",
+								"65bb9881bb400cc7187710d5",
+								"soft"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Medicine Hard",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/medicines/65bb9881bb400cc7187710d5/hard",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"medicines",
+								"65bb9881bb400cc7187710d5",
+								"hard"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Get All Customers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/customers",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/customers/65bb9881bb400cc7187710d6",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"customers",
+								"65bb9881bb400cc7187710d6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test Customer\",\r\n    \"email\": \"test@gmail.com\",\r\n    \"address\": \"1 Test Rd, Test\",\r\n    \"phoneNumber\": \"0112224448\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/customers",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test Customer 1\",\r\n    \"email\": \"test1@gmail.com\",\r\n    \"address\": \"11 Test Rd, Test\",\r\n    \"phoneNumber\": \"0112224441\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/customers/65ba5714f6b2f22dbbee7083",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"customers",
+								"65ba5714f6b2f22dbbee7083"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/customers/65ba5714f6b2f22dbbee7083",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"customers",
+								"65ba5714f6b2f22dbbee7083"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer Soft",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/customers/65bb9881bb400cc7187710d6/soft",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"customers",
+								"65bb9881bb400cc7187710d6",
+								"soft"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer Hard",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/customers/65bb9881bb400cc7187710d6/hard",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"customers",
+								"65bb9881bb400cc7187710d6",
+								"hard"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Log In",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"jwt\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"greyboolean\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/auth/login",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log Out",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"jwt\", \"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/auth/logout",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
