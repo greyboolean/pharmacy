@@ -1,0 +1,5 @@
+MONGODB_URI={Put your MongoDB URI here}
+
+JWT_SECRET={Put your JWT secret here}
+JWT_EXPIRES_IN=90d
+JWT_COOKIE_EXPIRES_IN=90
